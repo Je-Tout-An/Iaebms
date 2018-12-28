@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "登录";
+}
+<style type="text/css">
+    div {
+        align-content:center;
+    }   
+    #tab {
+        border-collapse:inherit;
+    } 
+</style>
+<div>
+    <div>
+        <div>
+            <table id="tab" cellpadding="1" cellspacing="1">
+               <tr>
+                    <td>NAME</td>
+                    <td><input name="usname" type="text" id="usname" /></td>
+               </tr>
+               <tr>
+                   <td>PASSWORD</td>
+                   <td><input name="paword" type="text" id="paword" /></td>
+               </tr>
+               <tr>
+                   <td><input name="paword" type="button" value="LOGIN" onclick="test()"/></td>
+                   <td><input name="paword" type="button"  value="REST"/></td>
+               </tr>
+            </table> 
+        </div>
+    </div>
+</div>
+<script src="../Js/tl/jsencrypt.js" type="text/javascript"></script>
+<script src="../Js/tl/md_crypt.js" type="text/javascript"></script>
+<script type="text/javascript">
+    function test() {
+        var strcs = hex_md5($("#paword").val()).toUpperCase();
+        $.getJSON("../Json/c36853ea059e0d71a67557e5ee54b835/059e0d71a67557e5.json", function (data) {
+            var encrypt = new JSEncrypt();
+            encrypt.setPublicKey(data["q4c2cd3d41b221e3f"]);
+            strcs = '{"um":"' + $("#usname").val() + '","pd":"' + strcs + '"}';
+            var sss = encrypt.encrypt(strcs);
+            //console.log("sss:" + sss);
+            $.ajax({
+                url: "../Login/Info",
+                type: "post",
+                data: '{"result":"' + sss + '"}',
+                dataType: "text",
+                success: function (data) {
+                    //console.log(data);
+                    encrypt.setPrivateKey("MIICXAIBAAKBgQCQhK6NRyqiEYuIa94cL9zxRPxtcZMPRwUK2khBNCddIaOvrR2ismfekJsVJIlIQFMVA0OeR9xvD5m4S6+OLyTSi/S0AHX3tQHeNS+0J1b2bwQCwa9BFWQQCBlPPhPNSjMaHifPHVHJBNUQo5zdc0zGvFDWyZzS0AAKc98FjumbrwIDAQABAoGAK9sX3WerWGNapJuXW5ZqxgzZTZ0Zs5kpvpFfO+pHx8tdkQJH7AeX3cKkTVY5EuPyUn4bFv1Xt5xUWckeDVfhJE7zPQiAlRMIQ/XYuPbiSrbtzgbhNvN83QhM63v2BmisGo4DzG5/uM5x2SMkXP6IMooeVR8K7gSjo4EGU/yds4ECQQDDXpw8a2nh/ZVd9JL16gsow9WYItPwgsOQXV6gsBOr/uofQMlVytdSnn5b8uxTKQfgKs0aPyAvRn8uULyPRib1AkEAvV4gDwn3o0UR4CEx4V7kxWuRm3NT9Qy/h3bllb/2L15dywX8sBkTs7lBEfEzMwVAKzkzhv+da5FHP0AqEVQpkwJAZag0GYg2tx3Q++uIEKdwmQyVdq0gpLQV+GdtFqWoBsYEorB+UsLSGa5Yx5V2fKsL6wu6X17ba13+TWY7Rz3UhQJBAIiZnFCc5Qjeqx1ddKjZFfefN+LF15tePc8PIl/aoFDdJpVsVTIGdOLhUKILtt4n/Hjxg0zvmPPeUWG7/FyRtIcCQDy4yAjHJNuGyRFASVgZx0b1w/ZyQJSEvZBJ0wK1G2TxsWDtHthWtxsUfMsM4EpnpljfiqWynlt4Rths/66UIJE=");
+
+                    var ps = encrypt.decrypt(data);
+
+                    console.log(ps.resultData);
+                }, error: function () {
+
+                }
+            });
+        }); 
+    }
+</script>
