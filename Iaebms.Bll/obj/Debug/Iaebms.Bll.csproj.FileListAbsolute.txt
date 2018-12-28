@@ -1,6 +1,0 @@
-E:\个人项目\IAEBMS\Iaebms.Bll\bin\Debug\Iaebms.Bll.dll
-E:\个人项目\IAEBMS\Iaebms.Bll\bin\Debug\Iaebms.Bll.pdb
-E:\个人项目\IAEBMS\Iaebms.Bll\bin\Debug\Iaebms.Tool.dll
-E:\个人项目\IAEBMS\Iaebms.Bll\bin\Debug\Iaebms.Tool.pdb
-E:\个人项目\IAEBMS\Iaebms.Bll\obj\Debug\Iaebms.Bll.dll
-E:\个人项目\IAEBMS\Iaebms.Bll\obj\Debug\Iaebms.Bll.pdb
